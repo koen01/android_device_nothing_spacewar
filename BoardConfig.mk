@@ -10,6 +10,7 @@ TARGET_SOC := sm7325
 BUILD_BROKEN_DUP_RULES := true
 BUILD_BROKEN_ELF_PREBUILT_PRODUCT_COPY_FILES := true
 ALLOW_MISSING_DEPENDENCIES := true
+BUILD_BROKEN_VINTF_PRODUCT_COPY_FILES := true
 
 # A/B
 AB_OTA_UPDATER := true
@@ -97,18 +98,13 @@ DEVICE_MATRIX_FILE := $(DEVICE_PATH)/hidl/compatibility_matrix.xml
 DEVICE_MANIFEST_FILE := $(DEVICE_PATH)/hidl/manifest.xml
 
 DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE := \
-    hardware/qcom-caf/common/vendor_framework_compatibility_matrix.xml \
-    vendor/lineage/config/device_framework_matrix.xml
+    hardware/qcom-caf/common/vendor_framework_compatibility_matrix.xml  \
+    vendor/crooked/config/device_framework_matrix.xml
 
 # Kernel
 BOARD_FLASH_BLOCK_SIZE := 131072
 BOARD_KERNEL_PAGESIZE := 4096
 BOARD_BOOTIMG_HEADER_VERSION := 3
-BOARD_KERNEL_IMAGE_NAME := Image
-TARGET_KERNEL_ARCH := arm64
-TARGET_KERNEL_HEADER_ARCH := arm64
-TARGET_KERNEL_SOURCE := kernel/nothing/spacewar
-TARGET_KERNEL_CONFIG := np1-developers_defconfig
 
 BOARD_KERNEL_CMDLINE := \
     androidboot.hardware=qcom \
@@ -127,16 +123,8 @@ BOARD_KERNEL_CMDLINE := \
     ip6table_raw.raw_before_defrag=1 \
     androidboot.selinux=permissive
 
-KERNEL_SD_LLVM_SUPPORT := true 
-
-ifeq ($(KERNEL_SD_LLVM_SUPPORT), true)  #Using sd-llvm compiler
-      ifeq ($(shell echo $(SDCLANG_PATH) | head -c 1),/)
-         KERNEL_LLVM_BIN := $(SDCLANG_PATH)
-      else
-         KERNEL_LLVM_BIN := $(shell pwd)/$(SDCLANG_PATH)
-      endif
-      $(warning "Using sdllvm" $(KERNEL_LLVM_BIN)/clang)
-endif
+TARGET_PREBUILT_DTB := $(DEVICE_PATH)/prebuilt/dtb.img
+BOARD_PREBUILT_DTBOIMAGE := $(DEVICE_PATH)/prebuilt/dtbo.img
 
 # Partitions
 BOARD_USES_METADATA_PARTITION := true
@@ -196,4 +184,4 @@ BOARD_AVB_RECOVERY_ROLLBACK_INDEX := $(PLATFORM_SECURITY_PATCH_TIMESTAMP)
 BOARD_AVB_RECOVERY_ROLLBACK_INDEX_LOCATION := 1
 
 # Inherit the proprietary files
-include vendor/nothing/spacewar/BoardConfigVendor.mk
+include vendor/nothing/Spacewar/BoardConfigVendor.mk

@@ -4,8 +4,19 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 
+# Platform
+PRODUCT_USES_QCOM_HARDWARE := true
+PRODUCT_BOARD_PLATFORM := lahaina
+
 # Inherit the proprietary files
-$(call inherit-product, vendor/nothing/spacewar/spacewar-vendor.mk)
+$(call inherit-product, vendor/nothing/Spacewar/Spacewar-vendor.mk)
+
+# Kernel
+PRODUCT_COPY_FILES += \
+    device/nothing/spacewar/prebuilt/kernel:kernel
+
+# Kernel headers
+PRODUCT_VENDOR_KERNEL_HEADERS := hardware/qcom-caf/sm8350/kernel-headers
 
 # Include GSI keys
 $(call inherit-product, $(SRC_TARGET_DIR)/product/developer_gsi_keys.mk)

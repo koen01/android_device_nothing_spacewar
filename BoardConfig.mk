@@ -123,9 +123,6 @@ BOARD_KERNEL_CMDLINE := \
     ip6table_raw.raw_before_defrag=1 \
     androidboot.selinux=permissive
 
-TARGET_PREBUILT_DTB := $(DEVICE_PATH)/prebuilt/dtb.img
-BOARD_PREBUILT_DTBOIMAGE := $(DEVICE_PATH)/prebuilt/dtbo.img
-
 # Partitions
 BOARD_USES_METADATA_PARTITION := true
 
@@ -184,4 +181,4 @@ BOARD_AVB_RECOVERY_ROLLBACK_INDEX := $(PLATFORM_SECURITY_PATCH_TIMESTAMP)
 BOARD_AVB_RECOVERY_ROLLBACK_INDEX_LOCATION := 1
 
 # Inherit the proprietary files
-include vendor/nothing/Spacewar/BoardConfigVendor.mk
+include vendor/nothing/spacewar/BoardConfigVendor.mk

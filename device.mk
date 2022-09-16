@@ -9,11 +9,13 @@ PRODUCT_USES_QCOM_HARDWARE := true
 PRODUCT_BOARD_PLATFORM := lahaina
 
 # Inherit the proprietary files
-$(call inherit-product, vendor/nothing/Spacewar/Spacewar-vendor.mk)
+$(call inherit-product, vendor/nothing/spacewar/spacewar-vendor.mk)
 
 # Kernel
 PRODUCT_COPY_FILES += \
-    device/nothing/spacewar/prebuilt/kernel:kernel
+    device/nothing/spacewar/prebuilt/kernel:kernel \
+    device/nothing/spacewar/prebuilt/dtb.img:dtb.img \
+    device/nothing/spacewar/prebuilt/dtbo.img:dtbo.img
 
 # Kernel headers
 PRODUCT_VENDOR_KERNEL_HEADERS := hardware/qcom-caf/sm8350/kernel-headers

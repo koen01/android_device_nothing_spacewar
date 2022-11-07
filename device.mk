@@ -56,9 +56,6 @@ PRODUCT_PACKAGES += \
     checkpoint_gc \
     otapreopt_script
 
-# Audio
-AUDIO_HAL_DIR := hardware/qcom-caf/sm8350/audio
-
 # Boot animation
 TARGET_SCREEN_HEIGHT := 2400
 TARGET_SCREEN_WIDTH := 1080

@@ -1,13 +1,13 @@
 #
-# Copyright (C) 2018-2021 PixysOS
+# Copyright (C) 2022 Crooked Android
 #
 # SPDX-License-Identifier: Apache-2.0
 #
 
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/pixys_Spacewar.mk
+    $(LOCAL_DIR)/crooked_Spacewar.mk
 
 COMMON_LUNCH_CHOICES := \
-    pixys_Spacewar-eng \
-    pixys_Spacewar-userdebug \
-    pixys_Spacewar-user
+    crooked_Spacewar-eng \
+    crooked_Spacewar-userdebug \
+    crooked_Spacewar-user

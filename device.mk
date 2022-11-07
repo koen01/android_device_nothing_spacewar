@@ -1,9 +1,21 @@
 #
-# Copyright (C) 2018-2021 PixysOS
+# Copyright (C) 2022 Crooked Android
 #
 # SPDX-License-Identifier: Apache-2.0
 #
 
+# Platform
+PRODUCT_USES_QCOM_HARDWARE := true
+PRODUCT_BOARD_PLATFORM := lahaina
+
+# Kernel Binary
+TARGET_KERNEL_DIR ?= device/nothing/spacewar-kernel
+LOCAL_KERNEL := $(TARGET_KERNEL_DIR)/Image
+
+PRODUCT_COPY_FILES += $(LOCAL_KERNEL):kernel
+
+# Kernel headers
+PRODUCT_VENDOR_KERNEL_HEADERS := hardware/qcom-caf/sm8350/kernel-headers
 # Setup dalvik vm configs
 $(call inherit-product, frameworks/native/build/phone-xhdpi-6144-dalvik-heap.mk)
 
@@ -13,7 +25,7 @@ $(call inherit-product, vendor/nothing/Spacewar/Spacewar-vendor.mk)
 # Overlays
 DEVICE_PACKAGE_OVERLAYS += \
     $(LOCAL_PATH)/overlay \
-    $(LOCAL_PATH)/overlay-pixys
+    $(LOCAL_PATH)/overlay-crooked
 
 PRODUCT_ENFORCE_RRO_TARGETS := *
 PRODUCT_ENFORCE_RRO_EXCLUDED_OVERLAYS += \
@@ -43,6 +55,9 @@ AB_OTA_POSTINSTALL_CONFIG += \
 PRODUCT_PACKAGES += \
     checkpoint_gc \
     otapreopt_script
+
+# Audio
+AUDIO_HAL_DIR := hardware/qcom-caf/sm8350/audio
 
 # Boot animation
 TARGET_SCREEN_HEIGHT := 2400
@@ -400,6 +415,9 @@ PRODUCT_PACKAGES_DEBUG += \
 # USB
 PRODUCT_PACKAGES += \
     android.hardware.usb@1.3-service-qti
+
+# USB
+$(call inherit-product, vendor/qcom/opensource/usb/vendor_product.mk)
 
 # Vendor service manager
 PRODUCT_PACKAGES += \

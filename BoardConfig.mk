@@ -1,9 +1,8 @@
 #
-# Copyright (C) 2018-2021 PixysOS
+# Copyright (C) 2022 Crooked Android
 #
 # SPDX-License-Identifier: Apache-2.0
 #
-
 DEVICE_PATH := device/nothing/Spacewar
 
 BUILD_BROKEN_DUP_RULES := true
@@ -32,7 +31,7 @@ TARGET_CPU_ABI2 :=
 TARGET_CPU_VARIANT := cortex-a76
 
 TARGET_2ND_ARCH := arm
-TARGET_2ND_ARCH_VARIANT := armv8-2a
+TARGET_2ND_ARCH_VARIANT := armv8-a
 TARGET_2ND_CPU_ABI := armeabi-v7a
 TARGET_2ND_CPU_ABI2 := armeabi
 TARGET_2ND_CPU_VARIANT := cortex-a76
@@ -44,6 +43,16 @@ TARGET_NO_BOOTLOADER := true
 # Build
 BUILD_BROKEN_DUP_RULES := true
 BUILD_BROKEN_ELF_PREBUILT_PRODUCT_COPY_FILES := true
+
+# DTB
+BOARD_BOOT_HEADER_VERSION := 4
+BOARD_BOOTIMG_HEADER_VERSION := 4
+BOARD_MKBOOTIMG_ARGS := --header_version $(BOARD_BOOT_HEADER_VERSION)
+
+# DTBO
+BOARD_USES_DT := true
+BOARD_PREBUILT_DTBIMAGE_DIR := $(TARGET_KERNEL_DIR)
+BOARD_PREBUILT_DTBOIMAGE := $(BOARD_PREBUILT_DTBIMAGE_DIR)/dtbo.img
 
 # Kernel
 BOARD_BOOT_HEADER_VERSION := 3
@@ -66,18 +75,12 @@ BOARD_KERNEL_IMAGE_NAME := Image
 BOARD_KERNEL_BASE := 0x00000000
 BOARD_KERNEL_PAGESIZE := 4096
 BOARD_KERNEL_SEPARATED_DTBO := true
-BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOT_HEADER_VERSION)
 BOARD_RAMDISK_USE_LZ4 := true
-TARGET_KERNEL_SOURCE := kernel/nothing/sm7325
-TARGET_KERNEL_CONFIG := vendor/lahaina-qgki_defconfig
 
 BOARD_VENDOR_KERNEL_MODULES_LOAD := $(strip $(shell cat $(DEVICE_PATH)/modules.load))
 BOARD_VENDOR_RAMDISK_RECOVERY_KERNEL_MODULES_LOAD := $(strip $(shell cat $(DEVICE_PATH)/modules.load.recovery))
 BOOT_KERNEL_MODULES := $(BOARD_VENDOR_RAMDISK_RECOVERY_KERNEL_MODULES_LOAD)
 TARGET_MODULE_ALIASES += wlan.ko:qca_cld3_qca6750.ko
-
-# Platform
-TARGET_BOARD_PLATFORM := lahaina
 
 # ANT+
 BOARD_ANT_WIRELESS_DEVICE := "qualcomm-hidl"
@@ -115,7 +118,7 @@ TARGET_SURFACEFLINGER_UDFPS_LIB := //$(DEVICE_PATH):libudfps_extension.nothing
 DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE := \
     $(DEVICE_PATH)/configs/vintf/vendor_framework_compatibility_matrix.xml \
     hardware/qcom-caf/common/vendor_framework_compatibility_matrix.xml \
-    vendor/pixys/config/device_framework_matrix.xml \
+    vendor/crooked/config/crooked_compatibility_matrix.xml \
     vendor/nxp/nfc/vendor_framework_compatibility_matrix.xml
 DEVICE_MATRIX_FILE := $(DEVICE_PATH)/configs/vintf/compatibility_matrix.xml
 DEVICE_MANIFEST_FILE := $(DEVICE_PATH)/configs/vintf/manifest_yupik.xml
@@ -172,6 +175,7 @@ VENDOR_SECURITY_PATCH := 2022-09-01
 
 # SELinux
 include device/qcom/sepolicy_vndr/SEPolicy.mk
+
 
 # Soong
 SOONG_CONFIG_NAMESPACES += androidBluetoothVars
